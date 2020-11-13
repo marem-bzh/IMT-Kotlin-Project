@@ -5,23 +5,24 @@ import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.converter.gson.GsonConverterFactory
 
-interface BookService {
+interface BookApi {
     @GET("books")
     fun getBooksRequest() : Call<List<Book>>
 
     companion object {
         private const val  baseUrl = "http://henri-potier.xebia.fr/"
 
-        fun create(): BookService {
-            val retrofit = Retrofit.Builder().baseUrl(baseUrl).build()
+        fun create(): BookApi {
+            val retrofit = Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build()
 
-            return retrofit.create(BookService::class.java)
+            return retrofit.create(BookApi::class.java)
         }
     }
 
-    fun getBooks(service: BookService, onSuccess: (books: List<Book>) -> Unit, onError: (error: String) -> Unit) {
-        service.getBooksRequest().enqueue(
+    fun getBooks(api: BookApi, onSuccess: (books: List<Book>) -> Unit, onError: (error: String) -> Unit) {
+        api.getBooksRequest().enqueue(
             object: Callback<List<Book>> {
                 override fun onResponse(call: Call<List<Book>>, response: Response<List<Book>>) {
                     if (response.isSuccessful) {
