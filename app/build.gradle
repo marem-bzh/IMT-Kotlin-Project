@@ -76,4 +76,7 @@ dependencies {
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
+
+    // Pictures
+    implementation "com.squareup.picasso:picasso:2.71828"
 }
