@@ -13,5 +13,5 @@ interface BookDao{
     fun insertAll(bookList: List<Book>)
 
     @Query("SELECT * FROM Book")
-    fun getAllBooks(): LiveData<List<Book>>
+    fun findAll(): LiveData<List<Book>>
 }
