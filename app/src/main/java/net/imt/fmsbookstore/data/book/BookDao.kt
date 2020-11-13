@@ -1,15 +1,12 @@
 package net.imt.fmsbookstore.data.book
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import net.imt.fmsbookstore.data.book.Book
+import androidx.room.*
+import androidx.room.OnConflictStrategy.REPLACE
 
 @Dao
 interface BookDao{
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertAll(bookList: List<Book>)
 
     @Query("SELECT * FROM Book")
