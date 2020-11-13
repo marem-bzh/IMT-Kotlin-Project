@@ -1,4 +1,4 @@
-package net.imt.fmsbookstore.model
+package net.imt.fmsbookstore.data.book
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
