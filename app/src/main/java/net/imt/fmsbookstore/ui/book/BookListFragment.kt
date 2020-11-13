@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import net.imt.fmsbookstore.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class BookListFragment: Fragment() {
     private val viewModel: BookListViewModel by viewModel()
@@ -22,6 +23,9 @@ class BookListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.bookList.observe(viewLifecycleOwner) {
+            it.forEach {
+                Timber.i(it.toString())
+            }
             // populate the list view here
         }
     }
