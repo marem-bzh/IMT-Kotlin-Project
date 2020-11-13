@@ -10,18 +10,4 @@ import retrofit2.converter.gson.GsonConverterFactory
 interface BookService {
     @GET("books")
     fun getBooks() : Call<List<Book>>
-
-    companion object {
-        private const val  baseUrl = "http://henri-potier.xebia.fr/"
-
-        fun create(): BookService {
-            val retrofit = Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build()
-
-            return retrofit.create(BookService::class.java)
-        }
-    }
-}
-
-val bookService by lazy {
-    BookService.create()
 }

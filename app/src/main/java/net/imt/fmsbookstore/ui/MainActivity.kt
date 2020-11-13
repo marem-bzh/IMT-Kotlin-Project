@@ -1,7 +1,8 @@
-package net.imt.fmsbookstore
+package net.imt.fmsbookstore.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import net.imt.fmsbookstore.R
 import net.imt.fmsbookstore.ui.book.BookListFragment
 
 class MainActivity : AppCompatActivity() {
