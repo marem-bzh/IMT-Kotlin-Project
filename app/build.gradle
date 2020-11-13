@@ -3,6 +3,9 @@ plugins {
     id 'kotlin-android'
     id "org.jetbrains.kotlin.kapt"
 }
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
 
 android {
     compileSdkVersion 30
@@ -58,4 +61,9 @@ dependencies {
 
     // extensions for fragments
     implementation "androidx.fragment:fragment-ktx:1.2.5"
+
+    // Hilt for dependency injection
+    implementation "com.google.dagger:hilt-android:2.28-alpha"
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01'
+    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
 }
