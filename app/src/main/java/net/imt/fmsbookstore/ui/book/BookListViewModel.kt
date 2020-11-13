@@ -20,8 +20,6 @@ import net.imt.fmsbookstore.data.book.BookRepository
         }
     }
 }*/
-class BookListViewModel @ViewModelInject constructor(
-    bookRepository: BookRepository
-) : ViewModel() {
+class BookListViewModel @ViewModelInject constructor(bookRepository: BookRepository) : ViewModel() {
     val bookList : LiveData<List<Book>> = bookRepository.getBookList()
 }
