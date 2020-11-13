@@ -2,7 +2,12 @@ package net.imt.fmsbookstore.data.book
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Response
+import timber.log.Timber
+import javax.security.auth.callback.Callback
 
 class BookRepository (
     private val bookService: BookService,
@@ -16,14 +21,14 @@ class BookRepository (
     }
 
     private fun refreshBookList() {
-        /*GlobalScope.launch {
+        GlobalScope.launch {
             val response = bookService.getBooks().execute()
-            val responseBody = response.body()
 
-            if (responseBody != null) {
-                bookDao.insertAll(responseBody)
+            if (response.isSuccessful) {
+                val booksList = response.body() ?: emptyList()
+                bookDao.insertAll(booksList)
             }
-        }*/
+        }
     }
 }
 
