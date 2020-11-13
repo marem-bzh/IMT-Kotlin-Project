@@ -6,25 +6,32 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.concurrent.Executor
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import kotlin.system.exitProcess
 
-class BookRepository {
-    private val bookService: BookService = TODO()
+class BookRepository @Inject constructor(
+    private val bookService: BookService,
+    private val executor: Executor,
+    private val bookDao: BookDao
+) {
 
     fun getBookList(): LiveData<List<Book>> {
-        val data = MutableLiveData<List<Book>>()
+        refreshBookList()
 
-        bookService.getBooks().enqueue(
-            object: Callback<List<Book>> {
-                override fun onResponse(call: Call<List<Book>>, response: Response<List<Book>>) {
-                    data.value = response.body()
-                }
-                override fun onFailure(call: Call<List<Book>>, t: Throwable) {
-                    TODO()
-                }
+        return bookDao.findAll()
+    }
 
+    private fun refreshBookList() {
+        executor.execute {
+            val response = bookService.getBooks().execute()
+            val responseBody = response.body()
+
+            if (responseBody == null) {
+                return@execute
             }
-        )
 
-        return data
+            bookDao.insertAll(responseBody)
+        }
     }
 }
