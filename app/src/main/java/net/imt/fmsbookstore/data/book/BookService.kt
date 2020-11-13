@@ -7,25 +7,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.converter.gson.GsonConverterFactory
 
-fun getBooks(onSuccess: (books: List<Book>) -> Unit, onError: (error: String) -> Unit) {
-    bookService.getBooks().enqueue(
-        object: Callback<List<Book>> {
-            override fun onResponse(call: Call<List<Book>>, response: Response<List<Book>>) {
-                if (response.isSuccessful) {
-                    val books = response.body() ?: emptyList()
-                    onSuccess(books)
-                } else {
-                    onError(response.errorBody()?.string() ?: "Unknown error")
-                }
-            }
-            override fun onFailure(call: Call<List<Book>>, t: Throwable) {
-                onError(t.message ?: "Unknown error")
-            }
-
-        }
-    )
-}
-
 interface BookService {
     @GET("books")
     fun getBooks() : Call<List<Book>>

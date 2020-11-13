@@ -1,16 +1,30 @@
 package net.imt.fmsbookstore.data.book
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.concurrent.Executor
 
-class BookRepository (private val bookService: BookService, private val bookDao: BookDao, private val ioExecutor: Executor) {
-    fun getBookList(): LiveData<List<Book>> {
-        bookService.getBooks(bookService, {
-            books -> ioExecutor.execute { bookDao.insertAll(books) }
-        }, { error ->
-            // If there is an error, the user will have access to the locally stored books
-        })
+class BookRepository {
+    private val bookService: BookService = TODO()
 
-        return bookDao.findAll()
+    fun getBookList(): LiveData<List<Book>> {
+        val data = MutableLiveData<List<Book>>()
+
+        bookService.getBooks().enqueue(
+            object: Callback<List<Book>> {
+                override fun onResponse(call: Call<List<Book>>, response: Response<List<Book>>) {
+                    data.value = response.body()
+                }
+                override fun onFailure(call: Call<List<Book>>, t: Throwable) {
+                    TODO()
+                }
+
+            }
+        )
+
+        return data
     }
 }
