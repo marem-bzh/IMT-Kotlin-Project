@@ -1,7 +1,8 @@
-package net.imt.fmsbookstore
+package net.imt.fmsbookstore.ui.book
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import net.imt.fmsbookstore.R
 
 class BookListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
