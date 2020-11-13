@@ -1,10 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id "org.jetbrains.kotlin.kapt"
 }
 apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'koin'
 
 
 android {
@@ -49,12 +48,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // Room
-    implementation "androidx.room:room-ktx:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     // Timber
     implementation('com.jakewharton.timber:timber:4.7.1')
@@ -62,8 +61,19 @@ dependencies {
     // extensions for fragments
     implementation "androidx.fragment:fragment-ktx:1.2.5"
 
-    // Hilt for dependency injection
-    implementation "com.google.dagger:hilt-android:2.28-alpha"
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01'
-    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+    // Koin AndroidX Scope features
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    // Koin AndroidX ViewModel features
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    // Koin AndroidX Fragment features
+    implementation "org.koin:koin-androidx-fragment:$koin_version"
+    // Koin AndroidX WorkManager
+    implementation "org.koin:koin-androidx-workmanager:$koin_version"
+    // Koin AndroidX Jetpack Compose
+    implementation "org.koin:koin-androidx-compose:$koin_version"
+    // Koin AndroidX Experimental features
+    implementation "org.koin:koin-androidx-ext:$koin_version"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
 }

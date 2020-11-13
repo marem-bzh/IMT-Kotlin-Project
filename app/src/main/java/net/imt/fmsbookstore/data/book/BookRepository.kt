@@ -1,18 +1,11 @@
 package net.imt.fmsbookstore.data.book
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.concurrent.Executor
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import kotlin.system.exitProcess
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class BookRepository @Inject constructor(
+class BookRepository (
     private val bookService: BookService,
-    private val executor: Executor,
     private val bookDao: BookDao
 ) {
 
@@ -23,15 +16,14 @@ class BookRepository @Inject constructor(
     }
 
     private fun refreshBookList() {
-        executor.execute {
+        /*GlobalScope.launch {
             val response = bookService.getBooks().execute()
             val responseBody = response.body()
 
-            if (responseBody == null) {
-                return@execute
+            if (responseBody != null) {
+                bookDao.insertAll(responseBody)
             }
-
-            bookDao.insertAll(responseBody)
-        }
+        }*/
     }
 }
+

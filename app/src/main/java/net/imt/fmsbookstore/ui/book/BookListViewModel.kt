@@ -1,15 +1,9 @@
 package net.imt.fmsbookstore.ui.book
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import dagger.hilt.android.HiltAndroidApp
+import androidx.lifecycle.*
 import net.imt.fmsbookstore.data.book.Book
 import net.imt.fmsbookstore.data.book.BookRepository
 
-class BookListViewModel @ViewModelInject constructor(bookRepository: BookRepository) : ViewModel() {
+class BookListViewModel(bookRepository: BookRepository) : ViewModel() {
     val bookList : LiveData<List<Book>> = bookRepository.getBookList()
 }

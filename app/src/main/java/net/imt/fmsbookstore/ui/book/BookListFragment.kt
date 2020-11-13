@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import net.imt.fmsbookstore.R
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BookListFragment: Fragment() {
-    private val viewModel: BookListViewModel by viewModels()
+    private val viewModel: BookListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,3 +26,4 @@ class BookListFragment: Fragment() {
         }
     }
 }
+
