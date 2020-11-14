@@ -14,12 +14,18 @@ class BookRepository (
     private val bookDao: BookDao
 ) {
 
+    /**
+     * @return An observable LiveData representing the list of all books available in the app
+     */
     fun getBookList(): LiveData<List<Book>> {
         refreshBookList()
 
         return bookDao.findAll()
     }
 
+    /**
+     * Updates the list of books in the local storage using the bookService
+     */
     private fun refreshBookList() {
         GlobalScope.launch {
             val response = bookService.getBooks().execute()
