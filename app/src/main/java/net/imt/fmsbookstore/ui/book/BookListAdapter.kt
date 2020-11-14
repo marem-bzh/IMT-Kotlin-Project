@@ -18,7 +18,7 @@ import net.imt.fmsbookstore.ui.PositionedClickListener
 class BookListAdapter(private var bookList: List<Book>, private val listener : PositionedClickListener) : RecyclerView.Adapter<BookListAdapter.BookHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookListAdapter.BookHolder {
-        val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.fragment_book_list_item, parent, false)
+        val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.book_list_item, parent, false)
         return BookHolder(inflatedView, listener)
     }
 
