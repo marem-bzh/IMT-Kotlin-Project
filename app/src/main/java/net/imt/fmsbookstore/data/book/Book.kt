@@ -9,5 +9,5 @@ data class Book(
     val title: String,
     val price: Double,
     val cover: String,
-    // val synopsis: List<String> // TODO serialize synopsis
+    val synopsis: List<String>
 )
