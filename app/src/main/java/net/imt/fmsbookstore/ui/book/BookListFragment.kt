@@ -1,6 +1,5 @@
 package net.imt.fmsbookstore.ui.book
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,33 +9,38 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.imt.fmsbookstore.R
 import net.imt.fmsbookstore.data.book.Book
+import net.imt.fmsbookstore.ui.PositionedClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class BookListFragment: Fragment() {
     private val viewModel: BookListViewModel by viewModel()
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
-    private lateinit var bookAdapter: BookAdapter
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
+    private lateinit var bookListAdapter: BookListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // View
         val view = inflater.inflate(R.layout.fragment_book_list, container, false)
-
         linearLayoutManager = LinearLayoutManager(this.context)
         recyclerView = view.findViewById(R.id.bookListRecyclerView)
         recyclerView.layoutManager = linearLayoutManager
 
+        // Data
         val books = ArrayList<Book>()
-        /*books.add(Book("", "Book1", 0.0, ""))
-        books.add(Book("", "Book2", 0.0, ""))
-        books.add(Book("", "Book3", 0.0, ""))*/
 
-        bookAdapter = BookAdapter(books)
-        recyclerView.adapter = bookAdapter
+        // Behaviour
+        bookListAdapter = BookListAdapter(books, object: PositionedClickListener{
+            override fun onClick(v: View, position: Int) {
+                if (v.id == R.id.bookListItemButton){
+                    Timber.i("Add to cart item at position $position")
+                } else{
+                    Timber.i("Show details of item at position $position")
+                }
+            }
+        })
+        recyclerView.adapter = bookListAdapter
 
         return view
     }
@@ -44,14 +48,9 @@ class BookListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Once the view is created, we start observing the book list data in the viewModel to add content to the list
         viewModel.bookList.observe(viewLifecycleOwner) {
-            bookAdapter.setBookList(it)
-            /*bookAdapter = BookAdapter(it)
-            recyclerView.adapter = bookAdapter*/
-            /*it.forEach {
-                Timber.i(it.toString())
-            }*/
-            // populate the list view here
+            bookListAdapter.setBookList(it)
         }
     }
 }
