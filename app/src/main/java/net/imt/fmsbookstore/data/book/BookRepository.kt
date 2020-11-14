@@ -23,6 +23,12 @@ class BookRepository (
         return bookDao.findAll()
     }
 
+    fun getBook(isbn: String): LiveData<Book>{
+        refreshBookList()
+
+        return bookDao.find(isbn)
+    }
+
     /**
      * Updates the list of books in the local storage using the bookService
      */

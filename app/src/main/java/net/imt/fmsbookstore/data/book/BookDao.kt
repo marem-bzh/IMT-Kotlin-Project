@@ -11,4 +11,7 @@ interface BookDao{
 
     @Query("SELECT * FROM Book")
     fun findAll(): LiveData<List<Book>>
+
+    @Query("SELECT * FROM Book WHERE isbn=:isbn")
+    fun find(isbn: String): LiveData<Book>
 }
