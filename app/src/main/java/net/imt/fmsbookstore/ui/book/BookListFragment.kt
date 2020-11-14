@@ -33,10 +33,12 @@ class BookListFragment: Fragment() {
         // Behaviour
         bookListAdapter = BookListAdapter(books, object: PositionedClickListener{
             override fun onClick(v: View, position: Int) {
+                val book = bookListAdapter.bookList.get(position)
+
                 if (v.id == R.id.bookListItemButton){
-                    Timber.i("Add to cart item at position $position")
+                    Timber.i("Add ${book.title} to basket") // TODO
                 } else{
-                    Timber.i("Show details of item at position $position")
+                    (requireActivity() as BookListActivity).show(book)
                 }
             }
         })
@@ -50,7 +52,8 @@ class BookListFragment: Fragment() {
 
         // Once the view is created, we start observing the book list data in the viewModel to add content to the list
         viewModel.bookList.observe(viewLifecycleOwner) {
-            bookListAdapter.setBookList(it)
+            bookListAdapter.bookList = it
+            bookListAdapter.notifyDataSetChanged()
         }
     }
 }

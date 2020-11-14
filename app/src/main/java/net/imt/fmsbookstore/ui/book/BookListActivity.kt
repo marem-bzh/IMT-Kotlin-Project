@@ -1,5 +1,6 @@
 package net.imt.fmsbookstore.ui.book
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import net.imt.fmsbookstore.R
@@ -22,5 +23,8 @@ class BookListActivity : AppCompatActivity() {
 
     fun show(book: Book){
         // Handle navigation here
+        val intent = Intent(this, BookDetailsActivity::class.java)
+        intent.putExtra(BookDetailsActivity.BOOK_ISBN, book.isbn)
+        startActivity(intent)
     }
 }
