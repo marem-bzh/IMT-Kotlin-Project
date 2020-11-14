@@ -27,7 +27,7 @@ class BookListFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_book_list, container, false)
 
         linearLayoutManager = LinearLayoutManager(this.context)
-        recyclerView = view.findViewById(R.id.bookRecyclerView)
+        recyclerView = view.findViewById(R.id.bookListRecyclerView)
         recyclerView.layoutManager = linearLayoutManager
 
         val books = ArrayList<Book>()
