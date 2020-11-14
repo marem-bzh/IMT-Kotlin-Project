@@ -19,12 +19,14 @@ class BookDetailsFragment : Fragment() {
     private lateinit var bookTitleTextView: TextView
     private lateinit var bookCoverImageView: ImageView
     private lateinit var bookSynopsisTextView: TextView
+    private lateinit var bookPriceTextView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // View
         val view = inflater.inflate(R.layout.book_details, container, false)
 
         bookTitleTextView = view.findViewById(R.id.bookTitle)
+        bookPriceTextView = view.findViewById(R.id.bookPrice)
         bookCoverImageView = view.findViewById(R.id.bookCover)
         bookSynopsisTextView = view.findViewById(R.id.bookSynopsis)
 
@@ -36,6 +38,7 @@ class BookDetailsFragment : Fragment() {
 
         viewModel.book.observe(viewLifecycleOwner) {
             bookTitleTextView.text = it.title
+            bookPriceTextView.text = it.price.toString()
             Picasso.get().load(it.cover).into(bookCoverImageView)
             bookSynopsisTextView.text = it.synopsis.joinToString(" ")
         }

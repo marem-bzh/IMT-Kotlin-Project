@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso
 import net.imt.fmsbookstore.R
 import net.imt.fmsbookstore.data.book.Book
 import net.imt.fmsbookstore.ui.PositionedClickListener
+import org.w3c.dom.Text
 
 /**
  * @param listener The listener that handles clicks on the items and buttons of the list
@@ -34,8 +35,16 @@ class BookListAdapter(var bookList: List<Book>, private val listener : Positione
         private var button: Button
         private var book: Book? = null
 
+        private var bookItemCoverImageView: ImageView
+        private var bookItemTitleTextView: TextView
+        private var bookItemPriceTextView: TextView
+
         init {
             button = v.findViewById(R.id.bookListItemButton)
+
+            bookItemCoverImageView = view.findViewById<ImageView>(R.id.bookListItemCover)
+            bookItemTitleTextView = view.findViewById<TextView>(R.id.bookListItemTitle)
+            bookItemPriceTextView = view.findViewById<TextView>(R.id.bookListItemPrice)
 
             v.setOnClickListener(this)
             button.setOnClickListener(this)
@@ -49,11 +58,10 @@ class BookListAdapter(var bookList: List<Book>, private val listener : Positione
 
         fun bindBook(book: Book){
             this.book = book
-            val bookItemCoverImageView = view.findViewById<ImageView>(R.id.bookListItemCover)
-            val bookItemTitleTextView = view.findViewById<TextView>(R.id.bookListItemTitle)
 
             Picasso.get().load(book.cover).into(bookItemCoverImageView)
             bookItemTitleTextView.text = book.title
+            bookItemPriceTextView.text = book.price.toString()
         }
 
         companion object {
