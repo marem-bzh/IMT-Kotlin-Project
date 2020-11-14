@@ -2,11 +2,13 @@ package net.imt.fmsbookstore
 
 import android.app.Application
 import android.content.Context
+import androidx.lifecycle.SavedStateHandle
 import androidx.room.Room
 import net.imt.fmsbookstore.data.book.BookDao
 import net.imt.fmsbookstore.data.book.BookDatabase
 import net.imt.fmsbookstore.data.book.BookRepository
 import net.imt.fmsbookstore.data.book.BookService
+import net.imt.fmsbookstore.ui.book.BookDetailsViewModel
 import net.imt.fmsbookstore.ui.book.BookListViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -62,8 +64,11 @@ val repositoryModule = module {
 
 val viewModelModule = module {
 
-    // Specific viewModel pattern to tell Koin how to build CountriesViewModel
     viewModel {
         BookListViewModel(get())
+    }
+
+    viewModel {
+        BookDetailsViewModel(get(), get()) // this right here allows to use the saved state in the view model (ex: to get the isbn sent to BookDetailsFragment)
     }
 }
