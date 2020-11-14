@@ -44,8 +44,8 @@ class BookAdapter(private var bookList: List<Book>) : RecyclerView.Adapter<BookA
 
         fun bindBook(book: Book){
             this.book = book
-            val bookItemCoverImageView = view.findViewById<ImageView>(R.id.bookItemCover)
-            val bookItemTitleTextView = view.findViewById<TextView>(R.id.bookItemTitle)
+            val bookItemCoverImageView = view.findViewById<ImageView>(R.id.bookListItemCover)
+            val bookItemTitleTextView = view.findViewById<TextView>(R.id.bookListItemTitle)
 
             Picasso.get().load(book.cover).into(bookItemCoverImageView)
             bookItemTitleTextView.text = book.title
