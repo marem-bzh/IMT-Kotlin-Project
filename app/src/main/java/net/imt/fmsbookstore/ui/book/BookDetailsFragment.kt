@@ -1,21 +1,43 @@
 package net.imt.fmsbookstore.ui.book
 
+import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.squareup.picasso.Picasso
 import net.imt.fmsbookstore.R
-import net.imt.fmsbookstore.data.book.Book
-import net.imt.fmsbookstore.ui.PositionedClickListener
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class BookDetailsFragment : Fragment() {
+    private val viewModel: BookDetailsViewModel by viewModel(state = { arguments as Bundle })
+    private lateinit var bookTitleTextView: TextView
+    private lateinit var bookCoverImageView: ImageView
+    private lateinit var bookSynopsisTextView: TextView
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // View
-        val view = inflater.inflate(R.layout.fragment_book_detail, container, false)
+        val view = inflater.inflate(R.layout.book_details, container, false)
+
+        bookTitleTextView = view.findViewById(R.id.bookTitle)
+        bookCoverImageView = view.findViewById(R.id.bookCover)
+        bookSynopsisTextView = view.findViewById(R.id.bookSynopsis)
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.book.observe(viewLifecycleOwner) {
+            bookTitleTextView.text = it.title
+            Picasso.get().load(it.cover).into(bookCoverImageView)
+            bookSynopsisTextView.text = it.synopsis.joinToString(" ")
+        }
     }
 }

@@ -31,7 +31,7 @@ class BookListAdapter(var bookList: List<Book>, private val listener : Positione
 
     class BookHolder(v: View, private val listener: PositionedClickListener) : RecyclerView.ViewHolder(v), View.OnClickListener {
         private var view: View = v
-        private lateinit var button: Button
+        private var button: Button
         private var book: Book? = null
 
         init {

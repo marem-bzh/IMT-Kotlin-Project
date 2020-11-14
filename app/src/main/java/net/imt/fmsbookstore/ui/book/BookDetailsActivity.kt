@@ -17,6 +17,9 @@ class BookDetailsActivity : AppCompatActivity() {
 
         if(savedInstanceState == null){
             val fragment = BookDetailsFragment()
+
+            fragment.arguments = intent.extras
+
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.main_content, fragment)
