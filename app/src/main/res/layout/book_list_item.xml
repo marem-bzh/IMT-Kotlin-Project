@@ -10,10 +10,10 @@
 
     <ImageView
         android:id="@+id/bookListItemCover"
-        android:contentDescription="@string/the_book_s_cover"
         android:layout_width="110dp"
         android:layout_height="150dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/the_book_s_cover"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +28,25 @@
         app:layout_constraintStart_toEndOf="@+id/bookListItemCover"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Title of the Book here" />
+
+    <TextView
+        android:id="@+id/bookListItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/bookListItemCover"
+        tools:text="50" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/eur_symbol"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/bookListItemPrice"
+        app:layout_constraintStart_toEndOf="@+id/bookListItemPrice" />
 
     <Button
         android:id="@+id/bookListItemButton"

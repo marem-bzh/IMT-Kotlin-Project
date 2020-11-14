@@ -35,6 +35,25 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Title of the Book here" />
 
+        <TextView
+            android:id="@+id/bookPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/bookCover"
+            tools:text="50"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/bookPrice"
+            app:layout_constraintBottom_toBottomOf="@id/bookPrice"
+            android:textSize="20sp"
+            android:text="@string/eur_symbol"/>
+
         <Button
             android:id="@+id/bookButton"
             android:layout_width="wrap_content"
@@ -60,8 +79,8 @@
 
         <TextView
             android:id="@+id/bookSynopsis"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:justificationMode="inter_word"
             android:singleLine="false"
             android:textSize="20sp"
