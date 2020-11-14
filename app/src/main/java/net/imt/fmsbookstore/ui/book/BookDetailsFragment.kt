@@ -18,6 +18,7 @@ class BookDetailsFragment : Fragment() {
     private val viewModel: BookDetailsViewModel by viewModel(state = { arguments as Bundle })
     private lateinit var bookTitleTextView: TextView
     private lateinit var bookCoverImageView: ImageView
+    private lateinit var bookSynopsisTextView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // View
@@ -25,6 +26,7 @@ class BookDetailsFragment : Fragment() {
 
         bookTitleTextView = view.findViewById(R.id.bookTitle)
         bookCoverImageView = view.findViewById(R.id.bookCover)
+        bookSynopsisTextView = view.findViewById(R.id.bookSynopsis)
 
         return view
     }
@@ -35,7 +37,7 @@ class BookDetailsFragment : Fragment() {
         viewModel.book.observe(viewLifecycleOwner) {
             bookTitleTextView.text = it.title
             Picasso.get().load(it.cover).into(bookCoverImageView)
-            // TODO Synopsis
+            bookSynopsisTextView.text = it.synopsis.joinToString(" ")
         }
     }
 }
