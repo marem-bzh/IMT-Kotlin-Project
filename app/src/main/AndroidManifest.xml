@@ -13,6 +13,7 @@
         android:theme="@style/Theme.FMSBookStore"
         android:usesCleartextTraffic="true"
         android:name="FMSBookstore">
+        <activity android:name=".ui.book.BookDetailsActivity" />
         <activity android:name=".ui.book.BookListActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
