@@ -5,14 +5,14 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
-class FMSBookstore: Application() {
+class FMSBookStore: Application() {
     override fun onCreate() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
 
         startKoin {
-            androidContext(this@FMSBookstore)
+            androidContext(this@FMSBookStore)
             modules(
                 networkModule, serviceModule, databaseModule, repositoryModule, viewModelModule
             )
