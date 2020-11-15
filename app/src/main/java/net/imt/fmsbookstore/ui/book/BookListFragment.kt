@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import net.imt.fmsbookstore.MainActivity
 import net.imt.fmsbookstore.R
 import net.imt.fmsbookstore.data.book.Book
 import net.imt.fmsbookstore.ui.PositionedClickListener
@@ -38,7 +41,8 @@ class BookListFragment: Fragment() {
                 if (v.id == R.id.bookListItemButton){
                     Timber.i("Add ${book.title} to basket") // TODO
                 } else{
-                    (requireActivity() as BookListActivity).show(book)
+                    val bundle = Bundle().apply {putString("BOOK_ISBN", book.isbn)}
+                    (requireActivity() as MainActivity).navController.navigate(R.id.action_bookListFragment_to_bookDetailsFragment, bundle)
                 }
             }
         })
