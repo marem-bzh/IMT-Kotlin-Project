@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">FMSBookStore</string>
+    <string name="BASE_URL">http://henri-potier.xebia.fr/</string>
+    <string name="add_to_basket">Add to basket</string>
+    <string name="all_the_books">All the books</string>
+    <string name="the_book_s_cover">The book\'s cover</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="eur_symbol">€</string>
 </resources>
