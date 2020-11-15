@@ -18,52 +18,39 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val networkModule = module {
-    fun provideRetrofit(baseUrl: String): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(baseUrl)
+    single {
+        Retrofit.Builder()
+            .baseUrl(androidContext().getString(R.string.BASE_URL))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-    }
-
-    single {
-        provideRetrofit( androidContext().getString(R.string.BASE_URL) )
     }
 }
 
 val serviceModule = module {
-
-    fun provideBookService(retrofit: Retrofit): BookService {
-        return retrofit.create(BookService::class.java)
+    single {
+        (get() as Retrofit).create(BookService::class.java)
     }
-    single { provideBookService(get()) }
 }
 
 val databaseModule = module {
-
-    fun provideDatabase(application: Application): BookDatabase {
-        return Room.databaseBuilder(application, BookDatabase::class.java, "countries")
+    single {
+        Room.databaseBuilder(androidApplication(), BookDatabase::class.java, "books")
             .fallbackToDestructiveMigration()
             .build()
     }
 
-    fun provideBookDao(database: BookDatabase): BookDao {
-        return  database.bookDao()
+    single {
+        (get() as BookDatabase).bookDao()
     }
-
-    single { provideDatabase(androidApplication()) }
-    single { provideBookDao(get()) }
 }
 
 val repositoryModule = module {
-
-    fun provideBookRepository(service: BookService, dao : BookDao): BookRepository {
-        return BookRepository(service, dao)
+    single {
+        BookRepository(get(), get())
     }
-    single { provideBookRepository(get(), get()) }
 }
 
 val viewModelModule = module {
-
     viewModel {
         BookListViewModel(get())
     }
