@@ -4,8 +4,11 @@ import androidx.room.Room
 import net.imt.fmsbookstore.data.Database
 import net.imt.fmsbookstore.data.book.BookRepository
 import net.imt.fmsbookstore.data.book.BookService
+import net.imt.fmsbookstore.data.cart.CartRepository
+import net.imt.fmsbookstore.data.cart.CartService
 import net.imt.fmsbookstore.ui.book.BookDetailsViewModel
 import net.imt.fmsbookstore.ui.book.BookListViewModel
+import net.imt.fmsbookstore.ui.cart.CartViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -26,6 +29,9 @@ val serviceModule = module {
     single {
         (get() as Retrofit).create(BookService::class.java)
     }
+    single {
+        (get() as Retrofit).create(CartService::class.java)
+    }
 }
 
 val databaseModule = module {
@@ -38,11 +44,18 @@ val databaseModule = module {
     single {
         (get() as Database).bookDao()
     }
+
+    single {
+        (get() as Database).cartDao()
+    }
 }
 
 val repositoryModule = module {
     single {
         BookRepository(get(), get())
+    }
+    single {
+        CartRepository(get(), get())
     }
 }
 
@@ -53,5 +66,9 @@ val viewModelModule = module {
 
     viewModel {
         BookDetailsViewModel(get(), get()) // this right here allows to use the saved state in the view model (ex: to get the isbn sent to BookDetailsFragment)
+    }
+
+    viewModel {
+        CartViewModel(get())
     }
 }
