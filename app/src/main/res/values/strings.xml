@@ -9,4 +9,7 @@
     <string name="cart">Cart</string>
     <string name="total">Total :</string>
     <string name="place_order">Place order</string>
+    <string name="plus_symbol">+</string>
+    <string name="delete_symbol">x</string>
+    <string name="minus_symbol">-</string>
 </resources>
