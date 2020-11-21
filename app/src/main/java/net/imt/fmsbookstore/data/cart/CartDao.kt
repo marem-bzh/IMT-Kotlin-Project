@@ -13,5 +13,5 @@ interface CartDao{
     fun insertAll(cartElementList: List<CartElement>)
 
     @Query("SELECT * FROM CartElement")
-    fun findAll(): LiveData<List<CartElement>>
+    fun findAll(): List<CartElement>
 }
