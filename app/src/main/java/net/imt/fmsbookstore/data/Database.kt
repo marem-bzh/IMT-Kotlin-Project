@@ -6,8 +6,9 @@ import androidx.room.TypeConverters
 import net.imt.fmsbookstore.data.cart.CartDao
 import net.imt.fmsbookstore.data.book.Book
 import net.imt.fmsbookstore.data.book.BookDao
+import net.imt.fmsbookstore.data.cart.CartElement
 
-@Database(entities = [Book::class], version = 2)
+@Database(entities = [Book::class, CartElement::class], version = 3)
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
     abstract fun bookDao(): BookDao

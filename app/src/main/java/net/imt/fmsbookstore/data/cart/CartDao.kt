@@ -5,12 +5,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import net.imt.fmsbookstore.data.book.Book
 
 @Dao
 interface CartDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(cart: Cart)
+    fun insertAll(cartElementList: List<CartElement>)
 
-    @Query("SELECT * FROM Cart")
-    fun findAll(): LiveData<Cart>
+    @Query("SELECT * FROM CartElement")
+    fun findAll(): LiveData<List<CartElement>>
 }
