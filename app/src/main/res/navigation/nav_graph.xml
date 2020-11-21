@@ -17,10 +17,30 @@
             app:exitAnim="@animator/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_bookListFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@animator/slide_in_right"
+            app:exitAnim="@animator/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/bookDetailsFragment"
         android:name="net.imt.fmsbookstore.ui.book.BookDetailsFragment"
         android:label="BookDetailsFragment"
-        tools:layout="@layout/book_details" />
+        tools:layout="@layout/book_details">
+        <action
+            android:id="@+id/action_bookDetailsFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@animator/slide_in_right"
+            app:exitAnim="@animator/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="net.imt.fmsbookstore.ui.cart.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/cart" />
 </navigation>
