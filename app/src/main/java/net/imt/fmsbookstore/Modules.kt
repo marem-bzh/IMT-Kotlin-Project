@@ -1,11 +1,7 @@
 package net.imt.fmsbookstore
 
-import android.app.Application
-import android.content.Context
-import androidx.lifecycle.SavedStateHandle
 import androidx.room.Room
-import net.imt.fmsbookstore.data.book.BookDao
-import net.imt.fmsbookstore.data.book.BookDatabase
+import net.imt.fmsbookstore.data.Database
 import net.imt.fmsbookstore.data.book.BookRepository
 import net.imt.fmsbookstore.data.book.BookService
 import net.imt.fmsbookstore.ui.book.BookDetailsViewModel
@@ -34,13 +30,13 @@ val serviceModule = module {
 
 val databaseModule = module {
     single {
-        Room.databaseBuilder(androidApplication(), BookDatabase::class.java, "books")
+        Room.databaseBuilder(androidApplication(), Database::class.java, "books")
             .fallbackToDestructiveMigration()
             .build()
     }
 
     single {
-        (get() as BookDatabase).bookDao()
+        (get() as Database).bookDao()
     }
 }
 

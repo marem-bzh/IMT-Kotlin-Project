@@ -1,7 +1,5 @@
-package net.imt.fmsbookstore.cart
+package net.imt.fmsbookstore.data.cart
 
-import net.imt.fmsbookstore.data.book.Book
-import net.imt.fmsbookstore.data.book.BookService
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

@@ -1,9 +1,7 @@
-package net.imt.fmsbookstore.cart
+package net.imt.fmsbookstore.data.cart
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import net.imt.fmsbookstore.data.book.Book
-import net.imt.fmsbookstore.data.book.BookDao
 import java.util.concurrent.Executor
 import javax.inject.Inject
 

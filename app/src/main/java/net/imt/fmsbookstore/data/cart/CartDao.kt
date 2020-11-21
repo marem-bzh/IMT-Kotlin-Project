@@ -1,4 +1,4 @@
-package net.imt.fmsbookstore.cart
+package net.imt.fmsbookstore.data.cart
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
