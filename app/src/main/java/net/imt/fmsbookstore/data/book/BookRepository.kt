@@ -22,6 +22,7 @@ class BookRepository @Inject constructor(
         return bookDao.findAll()
     }
 
+
     private fun refreshBookList() {
         executor.execute {
             val response = bookService.getBooks().execute()

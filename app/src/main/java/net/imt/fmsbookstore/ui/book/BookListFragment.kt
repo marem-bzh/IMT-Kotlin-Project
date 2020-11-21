@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import net.imt.fmsbookstore.R
 
 class BookListFragment: Fragment() {
@@ -21,8 +22,9 @@ class BookListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /*
         viewModel.bookList.observe(viewLifecycleOwner) {
             // populate the list view here
-        }
+        }*/
     }
 }
