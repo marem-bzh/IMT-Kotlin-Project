@@ -3,6 +3,7 @@ package net.imt.fmsbookstore.data.cart
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class CartRepository (
@@ -15,7 +16,7 @@ class CartRepository (
     }
 
     fun addCartElement(cartElement: CartElement) {
-        val bookList : MutableList<CartElement> = this.getCart() as MutableList<CartElement>
+        var bookList : MutableList<CartElement> = this.getCart() as MutableList<CartElement>
         // add to list
         bookList.add(cartElement)
         // set all
@@ -34,9 +35,32 @@ class CartRepository (
 
 
     //TODO
-    fun getCommercialOffer() : CommercialOffer{
+    /*fun getCommercialOffer() : CommercialOffer{
+        val bookList = this.getCart()
         GlobalScope.launch {
-            val response = cartService.getComercialOffer("books/c30968db-cb1d-442e-ad0f-80e37c077f89,78ee5f25-b84f-45f7-bf33-6c7b30f1b502/commercialOffers").execute()
+            var queryParameter : String = ""
+            bookList.forEach{element -> {
+               queryParameter = element.isbn + ','
+            }}
+            val response = cartService.getComercialOffer(queryParameter+"/commercialOffers").execute()
+
+            if (response.isSuccessful){
+                val commercialOffer = response.body() ?: CommercialOffer(emptyList())
+                // TODO return value ?
+            }
+        }
+
+        return CommercialOffer(emptyList())
+    }*/
+
+    fun getCommercialOffer() : CommercialOffer{
+        val bookList = this.getCart()
+        val deferred = GlobalScope.async {
+            var queryParameter : String = ""
+            bookList.forEach{element -> {
+                queryParameter = element.isbn + ','
+            }}
+            val response = cartService.getComercialOffer(queryParameter+"/commercialOffers").execute()
 
             if (response.isSuccessful){
                 val commercialOffer = response.body() ?: CommercialOffer(emptyList())
