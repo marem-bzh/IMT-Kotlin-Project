@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import com.squareup.picasso.Picasso
 import net.imt.fmsbookstore.R
 import org.koin.androidx.viewmodel.ext.android.viewModel

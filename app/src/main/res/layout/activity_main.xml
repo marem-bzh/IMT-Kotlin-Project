@@ -19,4 +19,6 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph"
         tools:ignore="FragmentTagUsage" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

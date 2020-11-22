@@ -11,6 +11,8 @@ import com.squareup.picasso.Picasso
 import net.imt.fmsbookstore.R
 import net.imt.fmsbookstore.data.book.Book
 import net.imt.fmsbookstore.ui.PositionedClickListener
+import net.imt.fmsbookstore.ui.cart.CartViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.w3c.dom.Text
 
 /**
@@ -38,6 +40,8 @@ class BookListAdapter(var bookList: List<Book>, private val listener : Positione
         private var bookItemCoverImageView: ImageView
         private var bookItemTitleTextView: TextView
         private var bookItemPriceTextView: TextView
+
+
 
         init {
             button = v.findViewById(R.id.bookListItemButton)

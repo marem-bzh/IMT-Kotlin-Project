@@ -8,6 +8,6 @@ import retrofit2.http.Path
 import retrofit2.http.Url
 
 interface CartService {
-    @GET("books/{books}")
-    fun getComercialOffer(@Path("books") url:String) : Call<List<Offer>>
+    @GET("books/{books}/commercialOffers")
+    fun getComercialOffer(@Path("books") url:String) : Call<CommercialOffer>
 }

@@ -14,4 +14,16 @@ interface CartDao{
 
     @Query("SELECT * FROM CartElement")
     fun findAll(): LiveData<List<CartElement>>
+
+    @Query("DELETE FROM CartElement WHERE isbn=:isbn")
+    fun delete(isbn:String)
+
+    @Insert()
+    fun insert(cartElement: CartElement)
+
+    @Query("DELETE FROM CartElement")
+    fun nukeTable();
+
+    @Insert
+    fun insertCommercialOffer(commercialOffer: CommercialOffer)
 }

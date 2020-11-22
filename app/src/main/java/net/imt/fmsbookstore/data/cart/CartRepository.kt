@@ -1,42 +1,55 @@
 package net.imt.fmsbookstore.data.cart
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.util.*
 
 class CartRepository (
     private val cartService: CartService,
     private val cartDao: CartDao
 ) {
 
+    val currentOffer: MutableLiveData<CommercialOffer> by lazy {
+        MutableLiveData<CommercialOffer>()
+    }
+
     fun getCart(): LiveData<List<CartElement>> {
         return cartDao.findAll()
     }
 
-    // TODO
     fun addCartElement(cartElement: CartElement) {
-        // get all
-        // add to list
-        // set all
-    }
-
-    // TODO
-    fun removeCartElement(cartElement: CartElement) {
-        // get all
-        // Remove from list
-        // set all
-    }
-
-    fun getCommercialOffer() : CommercialOffer{
         GlobalScope.launch {
-            val response = cartService.getComercialOffer("books/c30968db-cb1d-442e-ad0f-80e37c077f89,78ee5f25-b84f-45f7-bf33-6c7b30f1b502/commercialOffers").execute()
+            cartDao.insert(cartElement)
+        }
+    }
 
-            if (response.isSuccessful){
-                val commercialOffer = response.body() ?: CommercialOffer(emptyList())
-                // TODO return value ?
+    fun removeCartElement(cartElement: CartElement) {
+        GlobalScope.launch {
+            cartDao.delete(cartElement.isbn)
+        }
+    }
+
+    fun nukeTable(){
+        GlobalScope.launch {
+            cartDao.nukeTable()
+        }
+    }
+
+    fun getCommercialOffer(cartElementList : List<CartElement>){
+        GlobalScope.launch {
+            val isbnList = cartElementList.map { cartElement -> cartElement.isbn }
+            val queryString = isbnList.joinToString(",")
+            val response = cartService.getComercialOffer(queryString).execute()
+            if(response.isSuccessful){
+                val commercialOffer = response.body() ?: CommercialOffer(offers = emptyList())
+                cartDao.insertCommercialOffer(commercialOffer)
             }
         }
-
-        return CommercialOffer(emptyList())
     }
+
 }

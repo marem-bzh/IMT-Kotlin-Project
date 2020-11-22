@@ -61,7 +61,7 @@ val repositoryModule = module {
 
 val viewModelModule = module {
     viewModel {
-        BookListViewModel(get())
+        BookListViewModel(get(), get())
     }
 
     viewModel {
@@ -69,6 +69,6 @@ val viewModelModule = module {
     }
 
     viewModel {
-        CartViewModel(get())
+        CartViewModel(get(), get())
     }
 }
