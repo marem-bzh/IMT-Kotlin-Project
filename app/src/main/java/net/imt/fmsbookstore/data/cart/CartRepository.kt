@@ -47,7 +47,7 @@ class CartRepository (
             val response = cartService.getComercialOffer(queryString).execute()
             if(response.isSuccessful){
                 val commercialOffer = response.body() ?: CommercialOffer(offers = emptyList())
-                cartDao.insertCommercialOffer(commercialOffer)
+                /*cartDao.insertCommercialOffer(commercialOffer)*/
             }
         }
     }

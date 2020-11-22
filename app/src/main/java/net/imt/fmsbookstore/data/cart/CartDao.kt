@@ -24,6 +24,6 @@ interface CartDao{
     @Query("DELETE FROM CartElement")
     fun nukeTable();
 
-    @Insert
-    fun insertCommercialOffer(commercialOffer: CommercialOffer)
+    /*@Insert
+    fun insertCommercialOffer(commercialOffer: CommercialOffer)*/
 }

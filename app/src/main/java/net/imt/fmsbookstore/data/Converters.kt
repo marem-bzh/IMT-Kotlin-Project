@@ -16,14 +16,14 @@ object Converters {
     fun stringToList(str: String): List<String>{
         return str.split("\n")
     }
-
+/*
     @TypeConverter
     @JvmStatic
     fun offerToString(offer: Offer): String{
         return offer.type + "|" + offer.value + "|" + offer.sliceValue?: ""
-    }
+    }*/
 
-    @TypeConverter
+    /*@TypeConverter
     @JvmStatic
     fun stringToOffer(str: String): Offer{
         val offerParts = str.split("|")
@@ -36,5 +36,5 @@ object Converters {
         else {
             return Offer(type, value, offerParts[2].toInt())
         }
-    }
+    }*/
 }
