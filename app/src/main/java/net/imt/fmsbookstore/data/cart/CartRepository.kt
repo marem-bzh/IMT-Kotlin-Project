@@ -14,6 +14,10 @@ class CartRepository (
     private val cartDao: CartDao
 ) {
 
+    val currentOffer: MutableLiveData<CommercialOffer> by lazy {
+        MutableLiveData<CommercialOffer>()
+    }
+
     fun getCart(): LiveData<List<CartElement>> {
         return cartDao.findAll()
     }
@@ -21,8 +25,6 @@ class CartRepository (
     fun addCartElement(cartElement: CartElement) {
         GlobalScope.launch {
             cartDao.insert(cartElement)
-            Timber.i("Cart Repository - add Cart Element")
-            Timber.i(cartElement.isbn)
         }
     }
 
@@ -37,4 +39,17 @@ class CartRepository (
             cartDao.nukeTable()
         }
     }
+
+    fun getCommercialOffer(cartElementList : List<CartElement>){
+        GlobalScope.launch {
+            val isbnList = cartElementList.map { cartElement -> cartElement.isbn }
+            val queryString = isbnList.joinToString(",")
+            val response = cartService.getComercialOffer(queryString).execute()
+            if(response.isSuccessful){
+                val commercialOffer = response.body() ?: CommercialOffer(offers = emptyList())
+                cartDao.insertCommercialOffer(commercialOffer)
+            }
+        }
+    }
+
 }

@@ -34,6 +34,7 @@
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:enabled="false"
         app:layout_constraintTop_toBottomOf="@+id/cartItemTitle"
         app:layout_constraintStart_toEndOf="@id/bookListItemCover"
         android:text="@string/minus_symbol"/>
@@ -52,6 +53,7 @@
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:enabled="false"
         app:layout_constraintTop_toBottomOf="@+id/cartItemTitle"
         app:layout_constraintStart_toEndOf="@id/numberOfItems"
         android:text="@string/plus_symbol"/>

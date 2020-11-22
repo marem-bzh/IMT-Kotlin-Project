@@ -7,11 +7,13 @@ import net.imt.fmsbookstore.data.cart.CartDao
 import net.imt.fmsbookstore.data.book.Book
 import net.imt.fmsbookstore.data.book.BookDao
 import net.imt.fmsbookstore.data.cart.CartElement
+import net.imt.fmsbookstore.data.cart.CommercialOffer
 
-@Database(entities = [Book::class, CartElement::class], version = 3)
+@Database(entities = [Book::class, CartElement::class, CommercialOffer::class], version = 4)
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
     abstract fun bookDao(): BookDao
 
     abstract fun cartDao(): CartDao
+
 }

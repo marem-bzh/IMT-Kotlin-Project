@@ -57,6 +57,8 @@ class CartFragment: Fragment() {
         viewModel.cartElementList.observe(viewLifecycleOwner){
             cartAdapter.cartElementList = it
             cartAdapter.notifyDataSetChanged()
+            viewModel.getCommercialOffer(it)
+            Timber.i("CartFragment update")
         }
     }
 

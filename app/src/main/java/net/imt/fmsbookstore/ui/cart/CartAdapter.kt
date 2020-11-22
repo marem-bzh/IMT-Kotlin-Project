@@ -32,6 +32,8 @@ class CartAdapter(var cartElementList : List<CartElement>, private val listener 
         holder.bindCartElement(cartElement)
     }
 
+
+
     class CartHolder(v: View, private val listener: PositionedClickListener, private val viewModel: CartViewModel) : RecyclerView.ViewHolder(v), View.OnClickListener {
 
         private var view: View = v
@@ -46,6 +48,7 @@ class CartAdapter(var cartElementList : List<CartElement>, private val listener 
         private var numberOfItems : TextView
         private var itemPrice : TextView
 
+        private var nbOfItems = 1;
 
         init {
             removeProductButton = view.findViewById(R.id.removeProductButton)
@@ -62,7 +65,6 @@ class CartAdapter(var cartElementList : List<CartElement>, private val listener 
 
         override fun onClick(v: View?) {
             v?: return
-
             listener.onClick(v, adapterPosition)
         }
 
@@ -71,13 +73,25 @@ class CartAdapter(var cartElementList : List<CartElement>, private val listener 
             viewModel.getBook(cartElement).observeForever({
                 cartItemTitle.text = it.title
                 Picasso.get().load(it.cover).into(bookListItemCover)
-                itemPrice.text = it.price.toString()
+                itemPrice.text = (it.price*nbOfItems).toString()
+                numberOfItems.text = nbOfItems.toString()
             })
 
             removeProductButton.setOnClickListener {
                 viewModel.removeCartElement(cartElement)
-                Timber.i("Rentre dedans")
             }
+
+            /*removeOneItemButton.setOnClickListener {
+                if(nbOfItems==1){
+                    viewModel.removeCartElement(cartElement)
+                } else {
+                    nbOfItems--
+                }
+            }
+
+            addOneItemButton.setOnClickListener {
+                nbOfItems++
+            }*/
 
         }
 

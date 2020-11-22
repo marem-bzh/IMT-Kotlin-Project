@@ -22,6 +22,10 @@ class CartViewModel(val cartRepository: CartRepository, val bookRepository: Book
         return bookRepository.getBook(cartElement.isbn)
     }
 
+    fun getCommercialOffer(cartElementList : List<CartElement>) {
+        cartRepository.getCommercialOffer(cartElementList)
+    }
+
     /*
     fun getCart() : List<CartElement>{
         return cartRepository.getCart()
