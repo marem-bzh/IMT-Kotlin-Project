@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.imt.fmsbookstore.R
@@ -42,11 +43,17 @@ class CartFragment: Fragment() {
 
         })
 
+        recyclerView.adapter = cartAdapter
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.cartElementList.observe(viewLifecycleOwner){
+            cartAdapter.cartElementList = it
+            cartAdapter.notifyDataSetChanged()
+        }
     }
+
 }

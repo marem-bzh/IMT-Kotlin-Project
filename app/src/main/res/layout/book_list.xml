@@ -7,6 +7,12 @@
     android:padding="20dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+    <Button
+        android:id="@+id/cartButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
     <TextView
         android:id="@+id/bookListTitle"
         android:layout_width="match_parent"
@@ -20,4 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" />
+
+
+
 </LinearLayout>

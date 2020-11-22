@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -22,6 +23,7 @@ class BookListFragment: Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
     private lateinit var bookListAdapter: BookListAdapter
+    private lateinit var cartButton : Button
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // View
@@ -29,6 +31,12 @@ class BookListFragment: Fragment() {
         linearLayoutManager = LinearLayoutManager(this.context)
         recyclerView = view.findViewById(R.id.bookListRecyclerView)
         recyclerView.layoutManager = linearLayoutManager
+        cartButton = view.findViewById(R.id.cartButton)
+
+        cartButton.setOnClickListener{
+            (requireActivity() as MainActivity).navController.navigate(R.id.action_bookListFragment_to_cartFragment)
+        }
+
 
         // Data
         val books = ArrayList<Book>()

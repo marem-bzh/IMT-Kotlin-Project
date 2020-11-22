@@ -6,13 +6,17 @@ import net.imt.fmsbookstore.data.cart.CartElement
 import net.imt.fmsbookstore.data.cart.CartRepository
 
 class CartViewModel(val cartRepository: CartRepository) : ViewModel() {
-    val cartElementList: List<CartElement> = cartRepository.getCart();
+    val cartElementList: LiveData<List<CartElement>> = cartRepository.getCart();
 
     fun addCartElement (cartElement: CartElement) {
-        cartRepository.addCartElement(cartElement);
+        cartRepository.addCartElement(cartElement)
     }
 
     fun removeCartElement (cartElement: CartElement) {
-        cartRepository.removeCartElement(cartElement);
+        cartRepository.removeCartElement(cartElement)
     }
+    /*
+    fun getCart() : List<CartElement>{
+        return cartRepository.getCart()
+    }*/
 }

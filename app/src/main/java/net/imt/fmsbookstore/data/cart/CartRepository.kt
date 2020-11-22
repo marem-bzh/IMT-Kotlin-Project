@@ -1,6 +1,7 @@
 package net.imt.fmsbookstore.data.cart
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -11,25 +12,35 @@ class CartRepository (
     private val cartDao: CartDao
 ) {
 
-    fun getCart(): List<CartElement> {
+    fun getCart(): LiveData<List<CartElement>> {
         return cartDao.findAll()
     }
 
     fun addCartElement(cartElement: CartElement) {
-        var bookList : MutableList<CartElement> = this.getCart() as MutableList<CartElement>
-        // add to list
-        bookList.add(cartElement)
+        GlobalScope.launch {
+            val cartElementList : MutableLiveData<List<CartElement>> = getCart() as MutableLiveData<List<CartElement>>
+            // add to list
+            cartElementList.observeForever({
+                it as MutableList<CartElement>
+                it.add(cartElement)
+            })
+
+            cartDao.insertAll(cartElementList)
+        }
         // set all
-        this.cartDao.insertAll(bookList)
     }
 
     fun removeCartElement(cartElement: CartElement) {
-        // get all
-        val bookList : MutableList<CartElement> = this.getCart() as MutableList<CartElement>
-        // Remove from list
-        val updatedList = bookList.filter { element -> !element.isbn.equals(cartElement.isbn) }
-        // set all
-        this.cartDao.insertAll(updatedList)
+        GlobalScope.launch{
+            val cartElementList : MutableLiveData<List<CartElement>> = getCart() as MutableLiveData<List<CartElement>>
+            cartElementList.observeForever({
+                it as MutableLiveData<CartElement>
+
+                it.filter { element -> !element.isbn.equals(cartElement.isbn) }
+                //TODO réussir à retourner it
+            })
+            cartDao.insertAll(cartElementList)
+        }
 
     }
 
@@ -53,6 +64,7 @@ class CartRepository (
         return CommercialOffer(emptyList())
     }*/
 
+    /*
     fun getCommercialOffer() : CommercialOffer{
         val bookList = this.getCart()
         val deferred = GlobalScope.async {
@@ -69,5 +81,5 @@ class CartRepository (
         }
 
         return CommercialOffer(emptyList())
-    }
+    }*/
 }

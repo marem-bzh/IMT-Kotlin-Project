@@ -10,8 +10,8 @@ import net.imt.fmsbookstore.data.book.Book
 @Dao
 interface CartDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(cartElementList: List<CartElement>)
+    fun insertAll(cartElementList: LiveData<List<CartElement>>)
 
     @Query("SELECT * FROM CartElement")
-    fun findAll(): List<CartElement>
+    fun findAll(): LiveData<List<CartElement>>
 }
