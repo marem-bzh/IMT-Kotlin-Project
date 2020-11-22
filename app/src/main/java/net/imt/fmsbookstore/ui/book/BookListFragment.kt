@@ -17,6 +17,7 @@ import net.imt.fmsbookstore.ui.PositionedClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
+
 class BookListFragment: Fragment() {
     private val viewModel: BookListViewModel by viewModel()
 
@@ -47,7 +48,9 @@ class BookListFragment: Fragment() {
                 val book = bookListAdapter.bookList.get(position)
 
                 if (v.id == R.id.bookListItemButton){
-                    Timber.i("Add ${book.title} to basket") // TODO
+                    //Timber.i("Add ${book.title} to basket") // TODO
+                    viewModel.addElementToCart(book)
+
                 } else{
                     val bundle = Bundle().apply {putString("BOOK_ISBN", book.isbn)}
                     (requireActivity() as MainActivity).navController.navigate(R.id.action_bookListFragment_to_bookDetailsFragment, bundle)
@@ -61,7 +64,7 @@ class BookListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.nukeTable()
         // Once the view is created, we start observing the book list data in the viewModel to add content to the list
         viewModel.bookList.observe(viewLifecycleOwner) {
             bookListAdapter.bookList = it

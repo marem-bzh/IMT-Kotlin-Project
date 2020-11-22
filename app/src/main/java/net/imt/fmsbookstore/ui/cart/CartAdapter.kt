@@ -6,18 +6,21 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.Transformations
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import net.imt.fmsbookstore.R
 import net.imt.fmsbookstore.data.book.BookRepository
 import net.imt.fmsbookstore.data.cart.CartElement
 import net.imt.fmsbookstore.ui.PositionedClickListener
+import net.imt.fmsbookstore.ui.book.BookListViewModel
+import timber.log.Timber
 
-class CartAdapter(var cartElementList : List<CartElement>, private val listener : PositionedClickListener) : RecyclerView.Adapter<CartAdapter.CartHolder>() {
+class CartAdapter(var cartElementList : List<CartElement>, private val listener : PositionedClickListener, private val viewModel : CartViewModel) : RecyclerView.Adapter<CartAdapter.CartHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartHolder {
         val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.cart_item, parent, false)
-        return CartHolder(inflatedView, listener)
+        return CartHolder(inflatedView, listener, viewModel)
     }
 
     override fun getItemCount(): Int {
@@ -29,7 +32,7 @@ class CartAdapter(var cartElementList : List<CartElement>, private val listener 
         holder.bindCartElement(cartElement)
     }
 
-    class CartHolder(v: View, private val listener: PositionedClickListener) : RecyclerView.ViewHolder(v), View.OnClickListener {
+    class CartHolder(v: View, private val listener: PositionedClickListener, private val viewModel: CartViewModel) : RecyclerView.ViewHolder(v), View.OnClickListener {
 
         private var view: View = v
         private var removeProductButton : Button
@@ -42,7 +45,6 @@ class CartAdapter(var cartElementList : List<CartElement>, private val listener 
         private var cartItemTitle : TextView
         private var numberOfItems : TextView
         private var itemPrice : TextView
-
 
 
         init {
@@ -64,13 +66,18 @@ class CartAdapter(var cartElementList : List<CartElement>, private val listener 
             listener.onClick(v, adapterPosition)
         }
 
-
         fun bindCartElement(cartElement : CartElement){
-            this.cartElement = cartElement
 
-            //Récupérer détail d'un livre via le bookrepository
+            viewModel.getBook(cartElement).observeForever({
+                cartItemTitle.text = it.title
+                Picasso.get().load(it.cover).into(bookListItemCover)
+                itemPrice.text = it.price.toString()
+            })
 
-            //Alimenter notre vue
+            removeProductButton.setOnClickListener {
+                viewModel.removeCartElement(cartElement)
+                Timber.i("Rentre dedans")
+            }
 
         }
 

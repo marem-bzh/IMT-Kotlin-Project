@@ -6,6 +6,8 @@ import androidx.lifecycle.Transformations
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.util.*
 
 class CartRepository (
     private val cartService: CartService,
@@ -18,68 +20,21 @@ class CartRepository (
 
     fun addCartElement(cartElement: CartElement) {
         GlobalScope.launch {
-            val cartElementList : MutableLiveData<List<CartElement>> = getCart() as MutableLiveData<List<CartElement>>
-            // add to list
-            cartElementList.observeForever({
-                it as MutableList<CartElement>
-                it.add(cartElement)
-            })
-
-            cartDao.insertAll(cartElementList)
+            cartDao.insert(cartElement)
+            Timber.i("Cart Repository - add Cart Element")
+            Timber.i(cartElement.isbn)
         }
-        // set all
     }
 
     fun removeCartElement(cartElement: CartElement) {
-        GlobalScope.launch{
-            val cartElementList : MutableLiveData<List<CartElement>> = getCart() as MutableLiveData<List<CartElement>>
-            cartElementList.observeForever({
-                it as MutableLiveData<CartElement>
-
-                it.filter { element -> !element.isbn.equals(cartElement.isbn) }
-                //TODO réussir à retourner it
-            })
-            cartDao.insertAll(cartElementList)
+        GlobalScope.launch {
+            cartDao.delete(cartElement.isbn)
         }
-
     }
 
-
-    //TODO
-    /*fun getCommercialOffer() : CommercialOffer{
-        val bookList = this.getCart()
+    fun nukeTable(){
         GlobalScope.launch {
-            var queryParameter : String = ""
-            bookList.forEach{element -> {
-               queryParameter = element.isbn + ','
-            }}
-            val response = cartService.getComercialOffer(queryParameter+"/commercialOffers").execute()
-
-            if (response.isSuccessful){
-                val commercialOffer = response.body() ?: CommercialOffer(emptyList())
-                // TODO return value ?
-            }
+            cartDao.nukeTable()
         }
-
-        return CommercialOffer(emptyList())
-    }*/
-
-    /*
-    fun getCommercialOffer() : CommercialOffer{
-        val bookList = this.getCart()
-        val deferred = GlobalScope.async {
-            var queryParameter : String = ""
-            bookList.forEach{element -> {
-                queryParameter = element.isbn + ','
-            }}
-            val response = cartService.getComercialOffer(queryParameter+"/commercialOffers").execute()
-
-            if (response.isSuccessful){
-                val commercialOffer = response.body() ?: CommercialOffer(emptyList())
-                // TODO return value ?
-            }
-        }
-
-        return CommercialOffer(emptyList())
-    }*/
+    }
 }

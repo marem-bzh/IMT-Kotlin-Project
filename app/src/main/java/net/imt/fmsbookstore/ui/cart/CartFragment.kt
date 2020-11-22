@@ -9,8 +9,10 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.imt.fmsbookstore.R
+import net.imt.fmsbookstore.data.book.Book
 import net.imt.fmsbookstore.data.cart.CartElement
 import net.imt.fmsbookstore.ui.PositionedClickListener
+import net.imt.fmsbookstore.ui.book.BookListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -19,6 +21,7 @@ class CartFragment: Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
     private lateinit var cartAdapter: CartAdapter
+    private lateinit var cartElements : ArrayList<CartElement>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +34,11 @@ class CartFragment: Fragment() {
         recyclerView = view.findViewById(R.id.cartRecyclerView)
         recyclerView.layoutManager = linearLayoutManager
 
-        val cartElements = ArrayList<CartElement>()
+        this.cartElements = ArrayList<CartElement>()
+
+
+        val bookList = ArrayList<Book>()
+
         cartAdapter = CartAdapter(cartElements, object: PositionedClickListener{
             override fun onClick(v: View, position: Int) {
                 val cartElement = cartAdapter.cartElementList
@@ -40,11 +47,8 @@ class CartFragment: Fragment() {
                     Timber.i("Test")
                 }
             }
-
-        })
-
+        }, viewModel)
         recyclerView.adapter = cartAdapter
-
         return view
     }
 
